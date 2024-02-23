@@ -1,0 +1,43 @@
+{
+  "name": "hardhat-project",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test"
+  },
+  "devDependencies": {
+    "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/providers": "^5.7.2",
+    "@nomicfoundation/hardhat-chai-matchers": "^1.0.4",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.6",
+    "@nomicfoundation/hardhat-toolbox": "^2.0.0",
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@nomiclabs/hardhat-etherscan": "^3.1.2",
+    "@openzeppelin/test-helpers": "^0.5.16",
+    "@solidstate/contracts": "^0.0.59",
+    "@typechain/ethers-v5": "^10.1.1",
+    "@typechain/hardhat": "^6.1.4",
+    "@types/chai": "^4.3.4",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^18.11.9",
+    "chai": "^4.3.10",
+    "erc721a": "^4.2.3",
+    "ethers": "^5.7.2",
+    "hardhat": "^2.20.1",
+    "solidity-coverage": "^0.8.5",
+    "ts-node": "^10.9.1",
+    "typechain": "^8.1.1",
+    "typescript": "^4.9.3"
+  },
+  "dependencies": {
+    "@chainlink/contracts": "^0.8.0",
+    "@divergencetech/ethier": "^0.55.0",
+    "@openzeppelin/contracts": "^4.9.5",
+    "@uniswap/v2-core": "^1.0.1",
+    "dotenv": "^16.3.1",
+    "ethier": "git+https://github.com/divergencetech/ethier.git",
+    "ethier_0_27": "git+https://github.com/divergencetech/ethier.git#aschlosberg/fix-workflow-badge",
+    "hardhat-gas-reporter": "^1.0.8",
+    "inflate-sol": "git+https://github.com/adlerjohn/inflate-sol.git",
+    "solidify-contracts": "git+https://github.com/proofxyz/solidify.git"
+  }
+}
