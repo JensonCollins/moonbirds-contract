@@ -1,4 +1,5 @@
 require("@nomicfoundation/hardhat-toolbox");
+require("hardhat-gas-reporter");
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
@@ -14,8 +15,13 @@ module.exports = {
   networks: {
     hardhat: {
       forking: {
-        url: "https://eth.llamarpc.com",
+        url: "https://eth-mainnet.public.blastapi.io",
       }
     }
-  }
+  },
+  gasReporter: {
+    currency: 'USD',
+    gasPrice: 15,
+    enabled: true,
+  },
 };

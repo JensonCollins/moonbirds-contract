@@ -15,6 +15,7 @@ import {TraitType} from "contracts/src/gen/TraitStorageMapping.sol";
 import {LayerType} from "contracts/src/gen/LayerStorageMapping.sol";
 import {Features, FeaturesLib} from "contracts/src/gen/Features.sol";
 
+import "hardhat/console.sol";
 /**
  * @notice The Moonbirds artwork and attributes assembler.
  * @dev Loads layers or traits from storage based on the provided features and
@@ -43,7 +44,7 @@ contract Assembler {
     /**
      * @notice The native resolution of Moonbird images (42x42).
      */
-    uint32 internal constant _NATIVE_MB_RES = 2000;
+    uint32 internal constant _NATIVE_MB_RES = 150;
 
     // =========================================================================
     //                           Constructor
@@ -75,7 +76,7 @@ contract Assembler {
         canvas = _addLayerIfPresent(canvas, LayerType.Headwear, f.headwear);
         canvas = _addLayerIfPresent(canvas, LayerType.Outerwear, f.outerwear);
 
-        return canvas;
+        return "";
     }
 
     /**

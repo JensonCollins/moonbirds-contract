@@ -60,7 +60,7 @@ contract MoonbirdsInchainRenderer is
     /**
      * @notice The native resolution of Moonbird images (42x42).
      */
-    uint32 internal constant _NATIVE_MB_RES = 2000;
+    uint32 internal constant _NATIVE_MB_RES = 150;
 
     /**
      * @notice Length of the BMP URI prefix (`data:image/bmp;base64,`).
@@ -231,14 +231,14 @@ contract MoonbirdsInchainRenderer is
         Features memory features = getFeatures(tokenId);
         Mutators memory mutators = getMutators(tokenId);
 
-        console.log("here1: ");
+//        console.log("here1");
 //        bytes memory artwork = assembler.assembleArtwork(features, mutators);
-//        console.logBytes(artwork);
-        Attribute[] memory attrs = assembler.assembleAttributes(features);
-        console.log(attrs[0].name);
-        console.log(attrs[0].value);
+//        console.log("here2");
+//        Attribute[] memory attrs = assembler.assembleAttributes(features);
+        Attribute[] memory attrs = new Attribute[](1);
+        console.log("here3");
 
-        return _wrapMetadata(tokenId, "0x", attrs);
+        return _wrapMetadata(tokenId, "", attrs);
     }
 
     // =========================================================================
@@ -456,7 +456,7 @@ contract MoonbirdsInchainRenderer is
         uri.appendSafe(bytes(string.concat(_externalLinkBaseURL, tokenIdStr)));
 
         uri.appendSafe('","image":"');
-        _appendArtworkURI(uri, artwork, _bmpScale);
+//        _appendArtworkURI(uri, artwork, _bmpScale);
 
         uri.appendSafe('","attributes":[');
         uint256 len = attrs.length;

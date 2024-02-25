@@ -57,26 +57,52 @@ describe("Lock", function () {
   }
 
   describe("Deployment", function () {
-    it("Should set the right owner", async function () {
+    it("Debugging tokenURI function from moonbirds contract", async function () {
       const [owner, otherAccount] = await ethers.getSigners();
+
+      const assembler = await ethers.getContractFactory("Assembler");
+      const assemblerContract = await assembler.deploy(
+          "0xEDe24B4988cb64cC07fB72fF8AE71Bd8bB031b70",
+          "0x991047C7576396839191bECb7ae074c55EaC9e51"
+      );
 
       const moonbirdsInchainRenderer = await ethers.getContractFactory("MoonbirdsInchainRenderer")
       const moonbirdsInchainRendererContract = await moonbirdsInchainRenderer.deploy(
           "0x23581767a106ae21c074b2276D25e5C3e136a68b",
           "0xF8D83845DEb59EE43CF012e57731209A472baF8c",
           "0xB7f6618F9E20fb56d5337000a90e540F4005c696",
-          "0xCc80f29a7DB70d727a666AE46Cf4CC3179514368",
+          assemblerContract.address,
           "https://proof.xyz/moonbirds/"
       )
       // const moonbirdsInchainRendererContract = moonbirdsInchainRenderer.attach("0xb1bEfc9E7B76C1e846EBBf3e6E1Ab029C86e7435")
 
+      const features = await moonbirdsInchainRendererContract.getFeatures(5);
+      const mutators = await moonbirdsInchainRendererContract.getMutators(5);
+      // const artwork = await assemblerContract.assembleArtwork(features, mutators);
+
+      const artworkGasFee = await assemblerContract.estimateGas.assembleArtwork(features, mutators);
+      const attributesGasFee = await assemblerContract.estimateGas.assembleAttributes(features);
+      console.log("assembleArtwork Gas fee", artworkGasFee.toNumber());
+      console.log("attributesGasFee Gas fee", attributesGasFee.toNumber());
+
+      const gasPrice = ethers.BigNumber.from("37058348409");
+      console.log("gasPrice", gasPrice.toNumber());
+
+      // Calculate the gas fee
+      // const artworkGasFeeInWei = gasPrice.mul(artworkGasFee)
+      // console.log("artworkGasFeeInWei", artworkGasFeeInWei.toString());
+      // const artworkGasFeeInWeiETH = ethers.utils.formatEther(artworkGasFeeInWei)
+      // console.log("artworkGasFeeInWeiETH", artworkGasFeeInWeiETH);
+
       await moonbirdsInchainRendererContract.setProofRegistry("0xBe3163b4B21309b841Fcc36cD1843B72Be357383")
-      try {
-        const tokenURI = await moonbirdsInchainRendererContract.tokenURI("5")
-        console.log(tokenURI);
-      } catch (e) {
-        console.error(e);
-      }
+      await moonbirdsInchainRendererContract.setBmpScale(8)
+      const tokenURIGasfee = await moonbirdsInchainRendererContract.estimateGas.tokenURI("5")
+      console.log(tokenURIGasfee.toNumber());
+
+      console.log("total gas fee", tokenURIGasfee.add(artworkGasFee).add(attributesGasFee).toString());
+      // const tokenURI = await moonbirdsInchainRendererContract.tokenURI("5")
+      // console.log(tokenURI)
+
       /*const provider = new ethers.providers.JsonRpcProvider("https://eth.llamarpc.com");
       const receipt = await provider.getTransactionReceipt("0x1c9c50c1f93eb9e95d7eb66808f188f7153066065167d056bfc322f8888978e3");
 
@@ -95,7 +121,7 @@ describe("Lock", function () {
       // const { lock, owner } = await loadFixture(deployOneYearLockFixture);
       //
       // expect(await lock.owner()).to.equal(owner.address);
-    });
+    }).timeout(1000000);
   });
 
   /*describe("Withdrawals", function () {
