@@ -11,3 +11,6 @@ REPORT_GAS=true npx hardhat test
 npx hardhat node
 npx hardhat run scripts/deploy.js
 ```
+
+MoonbirdsInchainRendere Contract
+`https://etherscan.io/address/0xb1bEfc9E7B76C1e846EBBf3e6E1Ab029C86e7435#readContract`
